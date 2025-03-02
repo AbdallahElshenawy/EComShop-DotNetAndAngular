@@ -1,0 +1,6 @@
+@EComShop.API_HostAddress = http://localhost:5135
+
+GET {{EComShop.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
