@@ -3,6 +3,7 @@ using EComShop.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EComShop.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250303221719_SeedPhotoData")]
+    partial class SeedPhotoData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -167,11 +170,8 @@ namespace EComShop.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<decimal>("NewPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("OldPrice")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal( 18, 2)");
 
                     b.HasKey("Id");
 
@@ -186,8 +186,7 @@ namespace EComShop.Infrastructure.Migrations
                             CategoryId = 1,
                             Description = "Dell Laptop",
                             Name = "Laptop",
-                            NewPrice = 50000m,
-                            OldPrice = 0m
+                            Price = 50000m
                         },
                         new
                         {
@@ -195,8 +194,7 @@ namespace EComShop.Infrastructure.Migrations
                             CategoryId = 1,
                             Description = "Samsung Mobile",
                             Name = "Mobile",
-                            NewPrice = 20000m,
-                            OldPrice = 0m
+                            Price = 20000m
                         },
                         new
                         {
@@ -204,8 +202,7 @@ namespace EComShop.Infrastructure.Migrations
                             CategoryId = 2,
                             Description = "Peter England Shirt",
                             Name = "Shirt",
-                            NewPrice = 2000m,
-                            OldPrice = 0m
+                            Price = 2000m
                         },
                         new
                         {
@@ -213,8 +210,7 @@ namespace EComShop.Infrastructure.Migrations
                             CategoryId = 2,
                             Description = "Polo T-Shirt",
                             Name = "T-Shirt",
-                            NewPrice = 1000m,
-                            OldPrice = 0m
+                            Price = 1000m
                         },
                         new
                         {
@@ -222,8 +218,7 @@ namespace EComShop.Infrastructure.Migrations
                             CategoryId = 3,
                             Description = "Basmati Rice",
                             Name = "Rice",
-                            NewPrice = 50m,
-                            OldPrice = 0m
+                            Price = 50m
                         },
                         new
                         {
@@ -231,8 +226,7 @@ namespace EComShop.Infrastructure.Migrations
                             CategoryId = 3,
                             Description = "Wheat Flour",
                             Name = "Wheat",
-                            NewPrice = 30m,
-                            OldPrice = 0m
+                            Price = 30m
                         });
                 });
 

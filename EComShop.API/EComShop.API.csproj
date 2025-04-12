@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -20,12 +21,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\EComShop.Core\EComShop.Core.csproj" />
+    <ProjectReference Include="..\EComShop.Infrastructure\EComShop.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EComShop.Core\EComShop.Core.csproj" />
-    <ProjectReference Include="..\EComShop.Infrastructure\EComShop.Infrastructure.csproj" />
+    <Folder Include="Helper\" />
+    <Folder Include="wwwroot\Images\" />
   </ItemGroup>
 
 </Project>

@@ -40,11 +40,8 @@ namespace EComShop.Infrastructure.Repositories
             return await quary.AsNoTracking().ToListAsync();
         }
 
-        public async Task<T> GetByIdAsync(int id)
-        {
-            var entity = await context.Set<T>().FindAsync(id) ?? throw new ArgumentNullException("entity not found");
-            return entity;
-        }
+        public async Task<T> GetByIdAsync(int id)=>await context.Set<T>().FindAsync(id);  
+     
 
         public async Task<T> GetByIdAsync(int id, params Expression<Func<T, object>>[] includs)
         {
