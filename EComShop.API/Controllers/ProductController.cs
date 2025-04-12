@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EComShop.API.Helper;
 using EComShop.Core.Dtos;
 using EComShop.Core.Entities.Product;
 using EComShop.Core.Interfaces;
@@ -18,11 +19,11 @@ namespace EComShop.API.Controllers
                 var products = await unitOfWork.ProductRepository
                     .GetAllAsync(x=>x.Category,x=>x.Photos);
                 var productDtos = mapper.Map<List<ProductDTO>>(products);
-                return Ok(productDtos ?? Enumerable.Empty<ProductDTO>());
+                return Ok(new ApiResponse<List<ProductDTO>>("Success", productDtos));
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                return ErrorResponse<List<ProductDTO>>(500, "Failed to retrieve products");
             }
         }
         [HttpGet("Get By Id")]
@@ -35,24 +36,25 @@ namespace EComShop.API.Controllers
                 var productDto = mapper.Map<ProductDTO>(product);
                 if (product == null)
                     return NotFound("Product not found");
-                return Ok(productDto);
+                return Ok(new ApiResponse<ProductDTO>("Success", productDto));
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                return ErrorResponse<ProductDTO>(500, $"Failed to retrieve product with id {id}");
             }
         }
+    
         [HttpPost("AddProduct")]
         public async Task<IActionResult> AddProduct(AddProductDTO addProductDto)
         {
             try
             {
                 await unitOfWork.ProductRepository.AddAsync(addProductDto);
-                return Ok(addProductDto);
+                return Ok(new ApiResponse<AddProductDTO>("Success", addProductDto));
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                return ErrorResponse<ProductDTO>(500, "Failed to add product");
             }
         }
         [HttpPut("UpdateProduct")]
@@ -62,11 +64,11 @@ namespace EComShop.API.Controllers
             {
                 await unitOfWork.ProductRepository.UpdateAsync(updateProductDto);
 
-                return Ok(updateProductDto);
+                return Ok(new ApiResponse<UpdateProductDTO>("Success", updateProductDto));
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                return ErrorResponse<ProductDTO>(500, "Failed to update product");
             }
         }
         [HttpDelete("DeleteProduct/{id}")]
@@ -77,12 +79,11 @@ namespace EComShop.API.Controllers
                 var product = await unitOfWork.ProductRepository
                     .GetByIdAsync(id,p=>p.Photos,p=>p.Category);
                 await unitOfWork.ProductRepository.DeleteAsync(product);
-                return Ok(product);
-
+                return Ok(new ApiResponse<Product>("Success", product));
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                return ErrorResponse<ProductDTO>(500, "Failed to delete product");
             }
         }
     }
